@@ -4,21 +4,25 @@ import HomeScreen from "./screens/HomeScreen";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ProductScreen from "./screens/ProductScreen";
 import { Container } from "react-bootstrap";
+import { Provider } from "react-redux";
+import store from "./store";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <main className="py-3">
-        <Container>
-          <Switch>
-            <Route path="/" component={HomeScreen} exact />
-            <Route path="/product/:id" component={ProductScreen} />
-          </Switch>
-        </Container>
-      </main>
-      <Footer />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Header />
+        <main className="py-3">
+          <Container>
+            <Switch>
+              <Route path="/" component={HomeScreen} exact />
+              <Route path="/product/:id" component={ProductScreen} />
+            </Switch>
+          </Container>
+        </main>
+        <Footer />
+      </BrowserRouter>
+    </Provider>
   );
 }
 
