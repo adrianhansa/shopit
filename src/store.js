@@ -2,11 +2,19 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-const middleware = composeWithDevTools(applyMiddleware([...thunk]));
+import {
+  getProductReducer,
+  getProductsReducer,
+} from "./reducers/productReducers";
 
-const rootReducer = combineReducers({});
+const middleware = composeWithDevTools(applyMiddleware(thunk));
 
-const initialState = { name: "Adi" };
+const rootReducer = combineReducers({
+  productList: getProductsReducer,
+  productDetails: getProductReducer,
+});
+
+const initialState = {};
 
 const store = createStore(rootReducer, initialState, middleware);
 
