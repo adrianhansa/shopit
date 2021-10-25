@@ -14,7 +14,7 @@ import { getProductDetails } from "../actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 
 const ProductScreen = ({ match, history }) => {
-  const [qty, setQty] = useState();
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
