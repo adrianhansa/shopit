@@ -10,7 +10,7 @@ import {
 import { cartReducer } from "./reducers/cartReducers";
 import { loginReducer, registerReducer } from "./reducers/userReducers";
 
-const middleware = composeWithDevTools(applyMiddleware(thunk));
+const middleware = [thunk];
 
 const rootReducer = combineReducers({
   productList: getProductsReducer,
@@ -23,15 +23,19 @@ const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
 
-const userInforFromStorage = localStorage.getItem("userInfo")
+const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
 const initialState = {
   cart: { cartItems: cartItemsFromStorage },
-  userLogin: userInforFromStorage,
+  userLogin: userInfoFromStorage,
 };
 
-const store = createStore(rootReducer, initialState, middleware);
+const store = createStore(
+  rootReducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 
 export default store;

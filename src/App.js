@@ -7,6 +7,7 @@ import ProductScreen from "./screens/ProductScreen";
 import { Container } from "react-bootstrap";
 import { Provider } from "react-redux";
 import store from "./store";
+import Login from "./screens/Login";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/" component={HomeScreen} exact />
               <Route path="/product/:id" component={ProductScreen} />
               <Route path="/cart/:id?" component={Cart} />
+              <Route path="/login" component={Login} />
             </Switch>
           </Container>
         </main>

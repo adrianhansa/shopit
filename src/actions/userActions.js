@@ -8,12 +8,16 @@ import {
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
-    const response = await axios.post("http://localhost:5000/login", {
-      email,
-      password,
-    });
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: response.data });
-    localStorage.setItem("userInfo", JSON.stringify(response.data));
+    const { data } = await axios.post(
+      "http://localhost:5000/login",
+      {
+        email,
+        password,
+      },
+      { headers: { "Content-type": "application/json" } }
+    );
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
