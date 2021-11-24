@@ -7,23 +7,38 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import FormContainer from "../components/FormContainer";
 
-const Login = () => {
+const Login = ({ history, location }) => {
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const dispatch = useDispatch();
+  const { loading, error, userInfo } = useSelector((state) => state.userLogin);
+  const userInfoFromStorage = localStorage.getItem("userInfo");
+
+  useEffect(() => {
+    if (userInfoFromStorage) {
+      history.push(redirect);
+    }
+  }, [history, userInfoFromStorage, redirect]);
+
   const validationSchema = yup.object({
     email: yup.string().required("Please enter your email address."),
     password: yup.string().required("Please enter your password."),
   });
+
   return (
     <FormContainer>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => {
-          console.log(values);
+          dispatch(login(values.email, values.password));
         }}
         validationSchema={validationSchema}
       >
         {(props) => {
           return (
             <>
+              <h2>Log In</h2>
+              {loading && <p>{loading}</p>}
+              {error && <p>{error}</p>}
               <input
                 type="email"
                 placeholder="email"
@@ -40,9 +55,9 @@ const Login = () => {
                 onBlur={props.handleBlur("password")}
               />
               {props.touched && <p>{props.errors.password}</p>}
-              <button type="submit" onClick={props.handleSubmit}>
+              <Button type="submit" onClick={props.handleSubmit}>
                 Login
-              </button>
+              </Button>
             </>
           );
         }}

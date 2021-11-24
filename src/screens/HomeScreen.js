@@ -3,7 +3,6 @@ import { Col, Row, Container } from "react-bootstrap";
 import Product from "../components/Product";
 import { getProducts } from "../actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
-import Login from "./Login";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -15,7 +14,6 @@ const HomeScreen = () => {
   }, [dispatch]);
   return (
     <Container>
-      <Login />
       <h1>Latest Products</h1>
       {loading ? (
         <p>Loading....</p>
