@@ -8,6 +8,8 @@ import { Container } from "react-bootstrap";
 import { Provider } from "react-redux";
 import store from "./store";
 import Login from "./screens/Login";
+import Profile from "./screens/Profile";
+import Register from "./screens/Register";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
               <Route path="/product/:id" component={ProductScreen} />
               <Route path="/cart/:id?" component={Cart} />
               <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <Route path="/profile" component={Profile} />
             </Switch>
           </Container>
         </main>

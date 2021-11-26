@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/userActions";
 import { Formik } from "formik";
@@ -11,13 +10,12 @@ const Login = ({ history, location }) => {
   const redirect = location.search ? location.search.split("=")[1] : "/";
   const dispatch = useDispatch();
   const { loading, error, userInfo } = useSelector((state) => state.userLogin);
-  const userInfoFromStorage = localStorage.getItem("userInfo");
 
   useEffect(() => {
-    if (userInfoFromStorage) {
+    if (userInfo) {
       history.push(redirect);
     }
-  }, [history, userInfoFromStorage, redirect]);
+  }, [history, userInfo, redirect]);
 
   const validationSchema = yup.object({
     email: yup.string().required("Please enter your email address."),
